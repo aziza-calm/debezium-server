@@ -1,2 +1,1 @@
-io.debezium.server.TestConfigSource
 io.debezium.server.CustomJasyptConfigSource

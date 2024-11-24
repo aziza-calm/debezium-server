@@ -272,9 +272,12 @@ public class DebeziumServer {
 
     private Config loadConfigOrDie() {
         final Config config = ConfigProvider.getConfig();
+        LOGGER.info("========== ConfigSources: " + config.getConfigSources());
         // Check config and exit if we cannot load mandatory option.
         try {
-            config.getValue(PROP_SINK_TYPE, String.class);
+            String type = config.getValue(PROP_SINK_TYPE, String.class);
+            LOGGER.info("======== PROP: " + PROP_SINK_PREFIX + type + ".connection.password");
+            LOGGER.info("======== loadConfig rabbitmq password: " + config.getValue(PROP_SINK_PREFIX + type + ".connection.password", String.class));
         }
         catch (NoSuchElementException e) {
             final String configFile = Paths.get(System.getProperty("user.dir"), "config", "application.properties").toString();

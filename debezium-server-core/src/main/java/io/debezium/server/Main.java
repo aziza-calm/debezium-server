@@ -5,6 +5,10 @@
  */
 package io.debezium.server;
 
+import java.util.ServiceLoader;
+
+import org.eclipse.microprofile.config.spi.ConfigSource;
+
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
@@ -13,6 +17,11 @@ public class Main {
 
     public static void main(String... args) {
         Quarkus.run(args);
+        ServiceLoader<ConfigSource> loader = ServiceLoader.load(ConfigSource.class);
+        for (ConfigSource source : loader) {
+            System.out.println("Loaded ConfigSource: " + source.getName());
+        }
+
     }
 
 }
